@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ cicd_test_3 ]
   pull_request:
     branches: [ main ]
 
@@ -15,7 +15,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-and-test:
+  build:
     
     runs-on: ubuntu-latest
     container: node:14
@@ -42,8 +42,28 @@ jobs:
         yarn build
         yarn generate-components-api
         cd server && yarn
+    
+  test:
+    runs-on: ubuntu-latest
+    container: node:14
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+        
+    - uses: actions/cache@v2
+      with:
+        path: |
+          node_modules
+          ./*/node_modules
+        key: v1-npm-deps-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: v1-npm-deps-
+      
     - name: test  
       run: yarn test
+    
         
         
         
