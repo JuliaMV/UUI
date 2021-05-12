@@ -68,6 +68,8 @@ jobs:
   docker:
     needs: build
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: ui
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -84,10 +86,13 @@ jobs:
           
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: epmtai.azurecr.io/ui:0.0.1
+        uses: actions/checkout@v2
+        run: |
+          docker build -t $IMAGE_NAME:$GITHUB_SHA .
+          docker tag $IMAGE_NAME:$GITHUB_SHA $REGISTRY_URL/$IMAGE_NAME:$GITHUB_SHA
+          docker push ${{ secrets.REGISTRY_URL }}/$IMAGE_NAME:$CI_COMMIT_SHA
+
+          
 
         
         
