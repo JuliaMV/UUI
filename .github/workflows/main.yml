@@ -87,7 +87,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ui:0.0.1
+          tags: epmtai.azurecr.io/ui:0.0.1
 
         
         
