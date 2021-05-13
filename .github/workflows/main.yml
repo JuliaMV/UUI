@@ -87,8 +87,7 @@ jobs:
       - name: Build and push
         id: docker_build
         run: |
-          files=$(ls)
-          echo $files
+          ls
 #          docker build -t $IMAGE_NAME:$GITHUB_SHA .
 #          docker tag $IMAGE_NAME:$GITHUB_SHA ${{ secrets.REGISTRY_URL }}/$IMAGE_NAME:$GITHUB_SHA
 #          docker push ${{ secrets.REGISTRY_URL }}/$IMAGE_NAME:$CI_COMMIT_SHA
