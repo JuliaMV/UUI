@@ -70,6 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: ui
+      ACTIONS_STEP_DEBUG: true
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
